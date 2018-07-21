@@ -1,0 +1,27 @@
+{
+  "name": "@dispatchlabs/disnode-sdk",
+  "version": "1.0.0",
+  "description": "The Dispatch SDK for Node developers.",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/dispatchlabs/disnode_sdk.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "dispatch",
+    "sdk",
+    "node",
+    "blockchain"
+  ],
+  "author": "Dispatch Labs <developers@dispatchlabs.io> (http://dispatchlabs.io)",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "keccak": "^1.4.0",
+    "secp256k1": "^3.5.0"
+  }
+}

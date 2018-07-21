@@ -1,0 +1,11 @@
+{
+  "ACCOUNT_NAME_ISSTRING": "Account.name must be a string with length > 0",
+  "ACCOUNT_PRIVATEKEY_ISSTRING": "Account.privateKey must be a string who's Buffer length equals 32",
+  "ACCOUNT_BALANCE_ISNUMBER": "Account.balance must be null or a number >= 0",
+  "ACCOUNT_PUBLICKEY_ISSTRING": "Account.publicKey must be a string who's Buffer length equals 32",
+  "ACCOUNT_PUBLICKEY_MISSINGPRIVATEKEY": "Unable to generate Account.publicKey (missing Account.privateKey",
+  "ACCOUNT_ADDRESS_ISSTRING": "Account.address must be a string",
+  "SEEDNODEURL_ISSTRING": "seedNodeURL must be a string",
+  "TRANSACTION_TYPE_ISNUMBERINRANGE": "Transaction.type must be a number between 0 and 2",
+  "TRANSACTION_TOKENS_ISNUMBER": "Transaction.tokens must be a number"
+}
