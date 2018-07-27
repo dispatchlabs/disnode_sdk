@@ -3,9 +3,19 @@
   "ACCOUNT_PRIVATEKEY_ISSTRING": "Account.privateKey must be a string who's Buffer length equals 32",
   "ACCOUNT_BALANCE_ISNUMBER": "Account.balance must be null or a number >= 0",
   "ACCOUNT_PUBLICKEY_ISSTRING": "Account.publicKey must be a string who's Buffer length equals 32",
-  "ACCOUNT_PUBLICKEY_MISSINGPRIVATEKEY": "Unable to generate Account.publicKey (missing Account.privateKey",
   "ACCOUNT_ADDRESS_ISSTRING": "Account.address must be a string",
   "SEEDNODEURL_ISSTRING": "seedNodeURL must be a string",
   "TRANSACTION_TYPE_ISNUMBERINRANGE": "Transaction.type must be a number between 0 and 2",
-  "TRANSACTION_TOKENS_ISNUMBER": "Transaction.tokens must be a number"
+  "TRANSACTION_VALUE_ISPOSITIVENUMBER": "Transaction.tokens must be a positive number",
+  "TRANSACTION_FROM_ISACCOUNTABLE": "Transaction.from must be a string, object, or Account",
+  "TRANSACTION_SIGNATURE_ISSTRING": "Transaction.signature must be a string",
+  "TRANSACTION_TO_ISACCOUNTABLE": "Transaction.to must be a string, object, or Account",
+  "TRANSACTION_TIME_ISDATE": "Transaction.type must be a number between 0 and 2",
+  "TRANSACTION_CODE_ISSTRING": "Transaction.code must be a string with length > 0",
+  "TRANSACTION_ABI_ISARRAY": "Transaction.abi must be an array",
+  "TRANSACTION_METHOD_ISSTRING": "Transaction.method must be a string",
+  "TRANSACTION_PARAMS_ISARRAY": "Transaction.method must be an array",
+  "TRANSACTION_HASH_ISSTRING": "Transaction.hash must be a string",
+  "TRANSACTION_COMPILESOURCE_ISSTRING": "Transaction.compileSource must be provided a string with length > 0",
+  "TRANSACTION_COMPILE_ISOBJECT": "Transaction.compile must be provided an object"
 }

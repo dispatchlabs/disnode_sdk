@@ -1,14 +1,16 @@
 {
   "name": "@dispatchlabs/disnode-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The Dispatch SDK for Node developers.",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/dispatchlabs/disnode_sdk.git"
+    "type": "git",
+    "url": "https://github.com/dispatchlabs/disnode_sdk.git"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "node test/test.js",
+    "test": "mocha",
+    "autotest": "supervisor -q -n exit -x mocha -- -b",
+    "examples": "node ./examples/",
     "start": "node index.js"
   },
   "keywords": [
@@ -22,6 +24,30 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "keccak": "^1.4.0",
-    "secp256k1": "^3.5.0"
+    "secp256k1": "^3.5.0",
+    "solc": "^0.4.24"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "gulp-format-md": "^1.0.0",
+    "mocha": "^5.2.0",
+    "supervisor": "^0.12.0"
+  },
+  "verb": {
+    "run": true,
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "reflinks": [
+      "verb"
+    ],
+    "lint": {
+      "reflinks": true
+    }
   }
 }

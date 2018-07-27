@@ -5,6 +5,7 @@
     "delegateList": "/delegates",
     "transactionSend": "/transactions",
     "transactionStatus": "/statuses/",
-    "accountStatus": "/accounts/"
+    "accountStatus": "/accounts/",
+    "compileSolidity": "/compile"
   }
 }
