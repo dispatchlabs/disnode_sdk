@@ -1,6 +1,6 @@
 {
   "name": "@dispatchlabs/disnode-sdk",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "The Dispatch SDK for Node developers.",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
     "test": "nyc mocha",
     "autotest": "supervisor -q -n exit -x mocha -- -b",
     "examples": "node ./examples/",
-    "start": "node index.js"
+    "start": "node lib/index.js"
   },
   "keywords": [
     "dispatch",

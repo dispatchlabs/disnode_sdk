@@ -106,15 +106,35 @@ describe('Transaction creation', () => {
     assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '', hash: '' }); });
   });
 
+  it('Transaction.hash requires Transaction.from.address to be a string', () => {
+    const tx = new DisNodeSDK.Transaction({ from: new DisNodeSDK.Account() });
+    assert.throws(() => { tx.hash; });
+  });
+
   it('Transaction.hash should auto-populate', () => {
     assert.equal(new DisNodeSDK.Transaction(stubData.Transaction.type0).hash, stubData.Transaction.type0Hash);
     assert.equal(new DisNodeSDK.Transaction(stubData.Transaction.type1).hash, stubData.Transaction.type1Hash);
     assert.equal(new DisNodeSDK.Transaction(stubData.Transaction.type2).hash, stubData.Transaction.type2Hash);
   });
 
+  it('Transaction.signature must be a string', () => {
+    assert.throws(() => { new DisNodeSDK.Transaction({ from: '', signature: 0 }); });
+    assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '', signature: '' }); });
+  });
+
   it('Transaction.signature should auto-populate with privateKey', () => {
     assert.equal(new DisNodeSDK.Transaction({ from: '' }).signature, undefined);
     assert.equal(new DisNodeSDK.Transaction({ from: new DisNodeSDK.Account(stubData.Account.A1), time: stubData.Transaction.T1.time }).signature, stubData.Transaction.T1.signature);
+  });
+
+  it('Transaction.address must be a string', () => {
+    assert.throws(() => { new DisNodeSDK.Transaction({ from: '', address: 0 }); });
+    assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '', address: '' }); });
+  });
+
+  xit('Transaction.address should auto-populate with a signature and hash', () => {
+    assert.equal(new DisNodeSDK.Transaction({ from: '' }).address, undefined);
+    assert.equal(new DisNodeSDK.Transaction({ from: new DisNodeSDK.Account(stubData.Account.A1), time: stubData.Transaction.T1.time }).address, stubData.Transaction.T1.address);
   });
 
 });
