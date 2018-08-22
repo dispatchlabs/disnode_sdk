@@ -1,5 +1,5 @@
 {
-  "seedNode": "35.230.0.126:1975",
+  "seedNode": "35.203.143.69:1975",
   "apiVersion": "v1",
   "routes": {
     "delegateList": "/delegates",
