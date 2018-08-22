@@ -47,9 +47,9 @@ module.exports = (DisNodeSDK) => {
         hertz: 0,
         fromName: undefined,
         toName: undefined,
-        address: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30c'
+        address: '03e08bb6f3f25c3374487c4f5c026bd1e0fa4f5a39ef89e52f5ec1cb93a5c59744'
       },
-      T1_str: '{"hash":"1d6aca3a91c9ad81f36d0e52e47992257ba4c5309916ca370a2a37e9abad2e1f","type":0,"from":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d","to":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30b","value":5,"code":"a","abi":"[]","method":"foo","params":[],"time":1532595045435,"signature":"b82f8165a22fb9a7cc46e862ac83042e1295119f98eb940428074fe49396109f1eaa7087f2623a0abbaafa9a35d3ac19c6086fd96f4a1eec7ef683373425d6f900","hertz":0,"address":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30c"}',
+      T1_str: '{"hash":"1d6aca3a91c9ad81f36d0e52e47992257ba4c5309916ca370a2a37e9abad2e1f","type":0,"from":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d","to":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30b","value":5,"code":"a","abi":"[]","method":"foo","params":[],"time":1532595045435,"signature":"b82f8165a22fb9a7cc46e862ac83042e1295119f98eb940428074fe49396109f1eaa7087f2623a0abbaafa9a35d3ac19c6086fd96f4a1eec7ef683373425d6f900","hertz":0,"address":"03e08bb6f3f25c3374487c4f5c026bd1e0fa4f5a39ef89e52f5ec1cb93a5c59744"}',
       type0: {
         from: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
         to: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30b',
@@ -62,7 +62,7 @@ module.exports = (DisNodeSDK) => {
         from: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
         value: 5,
         time: 1532595045435,
-        code: '6080604052348015600f57600080fd5b5060868061001e6000396000f300608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063e2179b8e146044575b600080fd5b348015604f57600080fd5b5060566058565b005b5600a165627a7a7230582049207ee8e40a7cec5e02ae4b17430f6213404d65ec20007be0695e4b613fcc4e0029',
+        code: '6080604052348015600f57600080fd5b5060858061001e6000396000f300608060405260043610603e5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663e2179b8e81146043575b600080fd5b348015604e57600080fd5b5060556057565b005b5600a165627a7a72305820aee1d9928562f46bc9cc3a8951bb2655ba01f6682a0b09d556774a7992a4c5470029',
         abi: [
             {
               constant: false,
@@ -73,10 +73,9 @@ module.exports = (DisNodeSDK) => {
               stateMutability: 'nonpayable',
               type: 'function'
             }
-          ],
-        id: '4a6069b7-d986-42b8-b22b-e577dbd4ead8'
+          ]
       },
-      type1Hash: '61676c505ae93799a3a8f7d35c17b7422ceace9bf53704f6d5c04c8d93ecadcf',
+      type1Hash: 'e39762885605dc05844a0f62f6b715bbd7a365f2fd31dd45af15f0e6941e3236',
       type2: {
         type: 2,
         from: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
@@ -91,7 +90,7 @@ module.exports = (DisNodeSDK) => {
       C1: {
         source: 'contract x { function g() { } }',
         name: 'x',
-        bytecode: '6080604052348015600f57600080fd5b5060868061001e6000396000f300608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063e2179b8e146044575b600080fd5b348015604f57600080fd5b5060566058565b005b5600a165627a7a7230582049207ee8e40a7cec5e02ae4b17430f6213404d65ec20007be0695e4b613fcc4e0029',
+        bytecode: '6080604052348015600f57600080fd5b5060858061001e6000396000f300608060405260043610603e5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663e2179b8e81146043575b600080fd5b348015604e57600080fd5b5060556057565b005b5600a165627a7a72305820aee1d9928562f46bc9cc3a8951bb2655ba01f6682a0b09d556774a7992a4c5470029',
         abi: [
             {
               constant: false,
@@ -110,7 +109,7 @@ module.exports = (DisNodeSDK) => {
       delegates: [
         {
           address: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
-          endpoint: {
+          httpEndpoint: {
             host: '127.0.0.1',
             port: 1000
           },
@@ -118,7 +117,7 @@ module.exports = (DisNodeSDK) => {
         },
         {
           address: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
-          endpoint: {
+          httpEndpoint: {
             host: '127.0.0.1',
             port: 1001
           },
@@ -146,13 +145,17 @@ module.exports = (DisNodeSDK) => {
         }
       })
       break;
-    case '/v1/statuses/4a6069b7-d986-42b8-b22b-e577dbd4ead8':
+    case '/v1/receipts/e39762885605dc05844a0f62f6b715bbd7a365f2fd31dd45af15f0e6941e3236':
       callback(null, {
-        id: '4a6069b7-d986-42b8-b22b-e577dbd4ead8',
-        type: 'NewTransaction',
         status: 'Ok',
+        humanReadableStatus: 'Ok',
         created: '2018-07-27T18:14:40.809768288Z',
-        contractAddress: stubData.Contract.C1.address
+        data: {
+          transactionHash: 'e39762885605dc05844a0f62f6b715bbd7a365f2fd31dd45af15f0e6941e3236',
+          status: 'Ok',
+          created: '2018-07-27T18:14:40.809768288Z',
+          contractAddress: stubData.Contract.C1.address
+        }
       });
       break;
     default:
@@ -165,7 +168,6 @@ module.exports = (DisNodeSDK) => {
     switch (options.path) {
     case '/v1/transactions':
       callback(null, {
-        id: '4a6069b7-d986-42b8-b22b-e577dbd4ead8',
         type: 'NewTransaction',
         status: 'Pending',
         created: '2018-07-27T18:14:40.809768288Z'

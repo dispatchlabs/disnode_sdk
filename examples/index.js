@@ -7,6 +7,13 @@
 
 'use strict';
 
-require('./account')();
-require('./transactions')();
-require('./contracts')();
+require('./account')()
+	.then(() => {
+		return require('./transactions')();		
+	})
+	.then(() => {
+		return require('./contracts')();
+	})
+	.catch((e) => {
+		console.log(e);
+	});
