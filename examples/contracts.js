@@ -47,7 +47,7 @@ module.exports = () => {
 
   // END SETUP
                 // Provide source code as a string
-                const sourceCode = 'pragma solidity ^0.4.24;contract math { function plusOne(uint y) pure public returns(uint x) { x = y + 1; } }';
+                const sourceCode = 'pragma solidity ^0.4.24;contract math { function plusOne(uint256 y) pure public returns(uint256 x) { x = y + 1; } }';
                 console.log('Source code:\n' + sourceCode + '\n');
 
                 // Use Transaction.compileSource to easily compile solidity code
@@ -57,7 +57,7 @@ module.exports = () => {
 
                 // Accounts can create Smart Contracts using compiled values
                 const contract = test.createContract(compiled.contracts[0].bytecode, compiled.contracts[0].abi);
-                console.log('New contract:\n' + contract + '\n');
+                console.log('\nNew contract:\n' + contract + '\n');
 
                 // Calling "send" on the Transaction will return the original Promise (not re-send the tx)
                 contract.send()
@@ -71,7 +71,7 @@ module.exports = () => {
                             console.log('Contract creation result:\n' + JSON.stringify(result) + '\n');
 
                             // Exection happens from the account, to the contract, along with the method and parameters
-                            const execute = test.executeContract(contract, 'plusOne', [1], compiled.contracts[0].abi);
+                            const execute = test.executeContract(contract, 'plusOne', [1.0], compiled.contracts[0].abi);
                             console.log('Contract execution:\n' + execute + '\n');
                             execute
                               .whenStatusEquals('Ok')
