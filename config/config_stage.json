@@ -4,7 +4,7 @@
   "routes": {
     "delegateList": "/delegates",
     "transactionSend": "/transactions",
-    "transactionStatus": "/receipts/",
+    "transactionStatus": "/transactions/",
     "accountStatus": "/accounts/",
     "compileSolidity": "/compile"
   }

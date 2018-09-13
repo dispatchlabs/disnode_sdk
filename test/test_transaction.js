@@ -20,8 +20,12 @@ describe('Transaction creation', () => {
     assert.equal(t.constructor.name, 'Transaction');
   });
 
-  it('Transaction.from must be an Account or an object with a privateKey value', () => {
-    assert.throws(() => { new DisNodeSDK.Transaction(); }, TypeError);
+  it('Should be able to be instantiated with a string (hash)', () => {
+    const t = new DisNodeSDK.Transaction(stubData.Transaction.T1.hash);
+    assert.equal(t.hash, stubData.Transaction.T1.hash);
+  });
+
+  it('Transaction.from may be an Account or an object with a privateKey value', () => {
     assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '' }); });
     assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: new DisNodeSDK.Account(stubData.Account.A1) }); });
     assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: {privateKey: stubData.Account.A1.privateKey} }); });
@@ -48,9 +52,9 @@ describe('Transaction creation', () => {
   });
 
   it('Transaction.typeBuffer returns correct value', () => {
-    assert.deepEqual(new DisNodeSDK.Transaction({ from: '' }).typeBuffer, new Buffer('00', 'hex'));
-    assert.deepEqual(new DisNodeSDK.Transaction({ from: '', type: 1 }).typeBuffer, new Buffer('01', 'hex'));
-    assert.deepEqual(new DisNodeSDK.Transaction({ from: '', type: 2 }).typeBuffer, new Buffer('02', 'hex'));
+    assert.deepEqual(new DisNodeSDK.Transaction({ from: '' }).typeBuffer, new Buffer.from('00', 'hex'));
+    assert.deepEqual(new DisNodeSDK.Transaction({ from: '', type: 1 }).typeBuffer, new Buffer.from('01', 'hex'));
+    assert.deepEqual(new DisNodeSDK.Transaction({ from: '', type: 2 }).typeBuffer, new Buffer.from('02', 'hex'));
   });
 
   it('Transaction.from should contain an Account', () => {
@@ -77,7 +81,7 @@ describe('Transaction creation', () => {
   });
 
   it('Transaction.timeBuffer returns correct value', () => {
-    assert.deepEqual(new DisNodeSDK.Transaction({ from: '', time: stubData.Transaction.T1.time }).timeBuffer, new Buffer([59,132,200,213,100,1,0,0]));
+    assert.deepEqual(new DisNodeSDK.Transaction({ from: '', time: stubData.Transaction.T1.time }).timeBuffer, new Buffer.from([59,132,200,213,100,1,0,0]));
   });
 
   it('Transaction.code must be a string', () => {
@@ -181,7 +185,7 @@ describe('Transaction globals', () => {
     assert.equal(compiled.contracts[0].bytecode, stubData.Contract.C1.bytecode);
     assert.deepEqual(compiled.contracts[0].abi, stubData.Contract.C1.abi);
     assert.equal(compiled.errors.length, 0);
-    assert.equal(compiled.warnings.length, 3);
+    assert.equal(compiled.warnings.length, 2);
   });
 
   it('Transaction.compile should require "input" as an object', () => {
@@ -191,11 +195,11 @@ describe('Transaction globals', () => {
   });
 
   it('Transaction.compile should return as expected', () => {
-    let compiled = DisNodeSDK.Transaction.compile({sources: { source: stubData.Contract.C1.source }});
-    assert.exists(compiled.contracts['source:' + stubData.Contract.C1.name]);
-    assert.equal(compiled.contracts['source:' + stubData.Contract.C1.name].bytecode, stubData.Contract.C1.bytecode);
-    assert.deepEqual(JSON.parse(compiled.contracts['source:' + stubData.Contract.C1.name].interface), stubData.Contract.C1.abi);
-    assert.equal(compiled.errors.length, 3);
+    let compiled = DisNodeSDK.Transaction.compile({sources: { source: { content: stubData.Contract.C1.source }}});
+    assert.exists(compiled.contracts.source[stubData.Contract.C1.name]);
+    assert.equal(compiled.contracts.source[stubData.Contract.C1.name].evm.bytecode.object, stubData.Contract.C1.bytecode);
+    assert.deepEqual(compiled.contracts.source[stubData.Contract.C1.name].abi, stubData.Contract.C1.abi);
+    assert.equal(compiled.errors.length, 2);
   });
 
 });
