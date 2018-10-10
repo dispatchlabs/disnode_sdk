@@ -10,8 +10,13 @@
   "scripts": {
     "test": "nyc mocha",
     "autotest": "supervisor -q -n exit -x mocha -- -b",
-    "examples": "node ./examples/",
-    "start": "node lib/index.js"
+    "examples": "node ./examples/node/",
+    "start": "node lib/index.js",
+    "browser": "browserify ./lib/index_browser.js --standalone DisJS -o dist/disJS.js --debug",
+    "watch": "watchify ./lib/index_browser.js --standalone DisJS -o dist/disJS.js --debug --verbose"
+  },
+  "browser": {
+    "solc": false
   },
   "keywords": [
     "dispatch",
@@ -28,11 +33,13 @@
     "solc": "^0.4.24"
   },
   "devDependencies": {
+    "browserify": "^16.2.3",
     "chai": "^4.1.2",
     "gulp-format-md": "^1.0.0",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "supervisor": "^0.12.0"
+    "supervisor": "^0.12.0",
+    "watchify": "^3.11.0"
   },
   "verb": {
     "run": true,
