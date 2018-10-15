@@ -7,7 +7,7 @@
 
 'use strict'
 
-const DisNodeSDK = require('./../');
+const DisNodeSDK = require('./../../');
 
 module.exports = () => {
   return new Promise((resolve, reject) => {

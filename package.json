@@ -12,8 +12,8 @@
     "autotest": "supervisor -q -n exit -x mocha -- -b",
     "examples": "node ./examples/node/",
     "start": "node lib/index.js",
-    "browser": "browserify ./lib/index_browser.js --standalone DisJS -o dist/disJS.js --debug",
-    "watch": "watchify ./lib/index_browser.js --standalone DisJS -o dist/disJS.js --debug --verbose"
+    "browser": "browserify ./lib/index_browser.js --standalone DisJS --debug -t uglifyify -o dist/disJS.js",
+    "watch": "watchify ./lib/index_browser.js --standalone DisJS --debug --verbose -t uglifyify -o dist/disJS.js"
   },
   "browser": {
     "solc": false
@@ -39,6 +39,7 @@
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
     "supervisor": "^0.12.0",
+    "uglifyify": "^5.0.1",
     "watchify": "^3.11.0"
   },
   "verb": {
