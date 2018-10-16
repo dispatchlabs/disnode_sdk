@@ -1,7 +1,7 @@
 {
   "name": "@dispatchlabs/disnode-sdk",
   "version": "1.4.0",
-  "description": "The Dispatch SDK for Node developers.",
+  "description": "The Dispatch SDK for Node and JavaScript developers.",
   "repository": {
     "type": "git",
     "url": "https://github.com/dispatchlabs/disnode_sdk.git"
@@ -10,13 +10,19 @@
   "scripts": {
     "test": "nyc mocha",
     "autotest": "supervisor -q -n exit -x mocha -- -b",
-    "examples": "node ./examples/",
-    "start": "node lib/index.js"
+    "examples": "node ./examples/node/",
+    "start": "node lib/index.js",
+    "browser": "browserify ./lib/index_browser.js --standalone DisJS -p mapstraction --debug -t uglifyify -o dist/disJS.js",
+    "watch": "watchify ./lib/index_browser.js --standalone DisJS -p mapstraction --debug --verbose -t uglifyify -o dist/disJS.js"
+  },
+  "browser": {
+    "solc": false
   },
   "keywords": [
     "dispatch",
     "sdk",
     "node",
+    "javascript",
     "blockchain"
   ],
   "author": "Dispatch Labs <developers@dispatchlabs.io> (http://dispatchlabs.io)",
@@ -28,11 +34,16 @@
     "solc": "^0.4.24"
   },
   "devDependencies": {
+    "browserify": "^16.2.3",
     "chai": "^4.1.2",
     "gulp-format-md": "^1.0.0",
+    "husky": "^1.1.2",
+    "mapstraction": "^1.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "supervisor": "^0.12.0"
+    "supervisor": "^0.12.0",
+    "uglifyify": "^5.0.1",
+    "watchify": "^3.11.0"
   },
   "verb": {
     "run": true,
@@ -49,6 +60,11 @@
     ],
     "lint": {
       "reflinks": true
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run browser"
     }
   }
 }
