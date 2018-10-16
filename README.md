@@ -1,6 +1,8 @@
-# @dispatchlabs/disnode-sdk [![NPM version](https://img.shields.io/npm/v/@dispatchlabs/disnode-sdk.svg?style=flat)](https://www.npmjs.com/package/@dispatchlabs/disnode-sdk) [![NPM monthly downloads](https://img.shields.io/npm/dm/@dispatchlabs/disnode-sdk.svg?style=flat)](https://npmjs.org/package/@dispatchlabs/disnode-sdk)  [![NPM total downloads](https://img.shields.io/npm/dt/@dispatchlabs/disnode-sdk.svg?style=flat)](https://npmjs.org/package/@dispatchlabs/disnode-sdk) [![Linux Build Status](https://img.shields.io/travis/dispatchlabs/dispatchlabs.svg?style=flat&label=Travis)](https://travis-ci.org/dispatchlabs/dispatchlabs)
+# @dispatchlabs/disnode-sdk [![NPM version](https://img.shields.io/npm/v/@dispatchlabs/disnode-sdk.svg?style=flat)](https://www.npmjs.com/package/@dispatchlabs/disnode-sdk) [![NPM monthly downloads](https://img.shields.io/npm/dm/@dispatchlabs/disnode-sdk.svg?style=flat)](https://npmjs.org/package/@dispatchlabs/disnode-sdk) [![NPM total downloads](https://img.shields.io/npm/dt/@dispatchlabs/disnode-sdk.svg?style=flat)](https://npmjs.org/package/@dispatchlabs/disnode-sdk) [![Linux Build Status](https://img.shields.io/travis/dispatchlabs/dispatchlabs.svg?style=flat&label=Travis)](https://travis-ci.org/dispatchlabs/dispatchlabs)
 
-> The Dispatch SDK for Node developers.
+> The Dispatch SDK for Node and JavaScript developers.
+
+Please consider following this project's author, [Dispatch Labs](https://github.com/David Hutchings), and consider starring the project to show your :heart: and support.
 
 ## Install
 
@@ -10,25 +12,40 @@ Install with [npm](https://www.npmjs.com/):
 $ npm install --save @dispatchlabs/disnode-sdk
 ```
 
-Install with [yarn](https://yarnpkg.com):
+## CDN
 
-```sh
-$ yarn add @dispatchlabs/disnode-sdk
+The JavaScript version of the SDK may be included on the pae with the following CDN location:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@dispatchlabs/disnode-sdk/dist/disJS.js"></script>
 ```
 
 ## Usage
+
+Node:
 
 ```js
 var DisNodeSDK = require('@dispatchlabs/disnode-sdk');
 ```
 
+JavaScript:
+
+For JavaScript, the top-level object is `DisJS`. Any of the models and methods below (unless otherwise stated) can be used in the browser by replacing `DisNodeSDK` with `DisJS`. For example;
+
+```js
+// Create an empty account
+var account = new DisJS.Account();
+```
+
 ### Running examples
 
-Examples are contained in the [examples folder](examples) and can be executed using:
+Examples are contained in the [examples folder](examples) and can be executed in Node using:
 
 ```sh
 $ npm install && npm run examples
 ```
+
+To execute the JavaScript examples, open the `examples/js/index.html` file in a browser window and view the console.
 
 # Models
 
@@ -61,7 +78,7 @@ let account = new DisNodeSDK.Account({
 });
 ```
 
-### [refresh](lib/models/Account.js#L166)
+### [refresh](lib/models/Account.js#L172)
 
 Refreshes the account balance and access info (created and updated dates) from a delegate.
 
@@ -80,7 +97,7 @@ account.refresh()
   });
 ```
 
-### [init](lib/models/Account.js#L208)
+### [init](lib/models/Account.js#L225)
 
 Generaes a new private key for the account object (replacing one if present).
 
@@ -94,14 +111,14 @@ account.init();
 console.log(account);
 ```
 
-### [sendTokens](lib/models/Account.js#L237)
+### [sendTokens](lib/models/Account.js#L254)
 
 Creates and sends a transaction that will transfer tokens from the source account, to the target account.
 
 **Params**
 
 * **{string|Account}**: to - The address or Account to send the tokens to.
-* **{number}**: tokens - The number of tokens to send.
+* **{number}**: value - The number of tokens to send.
 * `returns` **{Transaction}**: Returns a transaction which has already been sent.
 
 **Example**
@@ -112,7 +129,7 @@ let account = new DisNodeSDK.Account('fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d')
 let tx = account.sendTokens(new DisNodeSDK.Account().init(), 1);
 ```
 
-### [createContract](lib/models/Account.js#L272)
+### [createContract](lib/models/Account.js#L293)
 
 Creates and sends a transaction from the account that will create a new Smart Contract.
 
@@ -120,7 +137,7 @@ Creates and sends a transaction from the account that will create a new Smart Co
 
 * **{string}**: code - Bytecode of a compiled contract.
 * **{string|array}**: code - The ABI of the contract.
-* **{number}**: tokens - The number of tokens to seed the contract with.
+* **{number}**: value - The number of tokens to seed the contract with.
 * `returns` **{Transaction}**: Returns a transaction which has already been sent.
 
 **Example**
@@ -131,7 +148,7 @@ let compiled = DisNodeSDK.Transaction.compileSource('contract x { function g() {
 let contract = account.createContract(compiled.contracts[0].bytecode, compiled.contracts[0].abi, 5);
 ```
 
-### [executeContract](lib/models/Account.js#L323)
+### [executeContract](lib/models/Account.js#L343)
 
 Creates and sends a transaction from the account that will execute a method on an existing Smart Contract.
 
@@ -140,8 +157,7 @@ Creates and sends a transaction from the account that will execute a method on a
 * **{string|Account|Transaction}**: to - The address of an existing contract, an Account representing the contract, or the contract creation Transaction.
 * **{string}**: method - The method in the contract to call.
 * **{array}**: params - The parameters to use during the method call.
-* **{string|array}**: code - The ABI of the contract being called.
-* **{number}**: tokens - The number of tokens to send to the contract for the method call.
+* **{number}**: value - The number of tokens to send to the contract for the method call.
 * `returns` **{Transaction}**: Returns a transaction which has already been sent.
 
 **Example**
@@ -175,7 +191,7 @@ let account = new DisNodeSDK.Account().init();
 let tx = new DisNodeSDK.Transaction({from: account});
 ```
 
-### [send](lib/models/Transaction.js#L272)
+### [send](lib/models/Transaction.js#L316)
 
 Sends the transaction to a delegate.
 
@@ -195,7 +211,7 @@ tx.send()
   });
 ```
 
-### [status](lib/models/Transaction.js#L308)
+### [status](lib/models/Transaction.js#L357)
 
 Requests the current status of the transaction from a delegate.
 
@@ -216,7 +232,7 @@ tx.status()
   });
 ```
 
-### [whenStatusEquals](lib/models/Transaction.js#L364)
+### [whenStatusEquals](lib/models/Transaction.js#L427)
 
 Waits until the status of the transaction matches the value provided, then resolves. Rejects after 5 seconds or when the transaction hits a non-matching final state.
 
@@ -240,7 +256,7 @@ tx.whenStatusEquals('Ok')
   });
 ```
 
-### [compileSource](lib/models/Transaction.js#L440)
+### [compileSource](lib/models/Transaction.js#L511)
 
 Static method to compile Solidity code directly.
 
@@ -267,28 +283,43 @@ if (compiled.errors.length > 0) {
 }
 ```
 
-### [compile](lib/models/Transaction.js#L484)
+### [compile](lib/models/Transaction.js#L564)
 
 Static method to compile complex Solidity JSON structures.
 
 **Params**
 
-* **{object}**: input - Full Solidity JSON structure. See {@link https://solidity.readthedocs.io/en/develop/using-the-compiler.html#compiler-input-and-output-json-description|Compiler Input and Output JSON Description}.
+* **{object}**: input - Full Solidity JSON structure. See [Compiler Input and Output JSON Description](https://solidity.readthedocs.io/en/develop/using-the-compiler.html#compiler-input-and-output-json-description).
 * `returns` **{object}**: Compiled output JSON.
 
 **Example**
 
 ```js
-let compiled = DisNodeSDK.Transaction.compile({sources: { source: 'contract x { function g() { } }' }});
+let compiled = DisNodeSDK.Transaction.compile({language: 'Solidity', sources: { source: { content: 'contract x { function g() { } }' }}});
 ```
 
 ## About
 
-### Contributing
+<details>
+<summary><strong>Contributing</strong></summary>
 
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
 
-### Building docs
+</details>
+
+<details>
+<summary><strong>Running Tests</strong></summary>
+
+Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:
+
+```sh
+$ npm install && npm test
+```
+
+</details>
+
+<details>
+<summary><strong>Building docs</strong></summary>
 
 _(This project's readme.md is generated by [verb](https://github.com/verbose/verb-generate-readme), please don't edit the readme directly. Any changes to the readme must be made in the [.verb.md](.verb.md) readme template.)_
 
@@ -298,20 +329,15 @@ To generate the readme, run the following command:
 $ npm install -g verbose/verb#dev verb-generate-readme && verb
 ```
 
-### Running tests
-
-Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:
-
-```sh
-$ npm install && npm test
-```
+</details>
 
 ### Author
 
 **Dispatch Labs**
 
-* [github/David Hutchings](https://github.com/David Hutchings)
-* [twitter/David Hutchings](https://twitter.com/David Hutchings)
+* [GitHub Profile](https://github.com/David Hutchings)
+* [Twitter Profile](https://twitter.com/David Hutchings)
+* [LinkedIn Profile](https://linkedin.com/in/jonschlinkert)
 
 ### License
 
@@ -320,4 +346,4 @@ Released under the [LGPL-3.0 License](LICENSE).
 
 ***
 
-_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.7.0, on July 26, 2018._
+_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.8.0, on October 16, 2018._
