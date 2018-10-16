@@ -45,7 +45,7 @@ Examples are contained in the [examples folder](examples) and can be executed in
 $ npm install && npm run examples
 ```
 
-To execute the JavaScript examples, open the `examples/js/index.html` file in a browser window and view the console.
+To execute the JavaScript examples, open the `examples/js/index.html` file in a browser window.
 
 # Models
 

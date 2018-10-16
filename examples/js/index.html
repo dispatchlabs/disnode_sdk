@@ -3,10 +3,19 @@
     <script src="../../dist/disjs.js"></script>
     <h1>DisJS Examples</h1>
     <script>
+      function write(msg, json) {
+        document.body.appendChild(document.createElement('p')).innerHTML = '<b>' + msg + '</b>';
+        if (json) {
+          document.body.appendChild(document.createElement('pre')).innerHTML = JSON.stringify(json, null, 2);
+        }
+        window.scrollTo(0,document.body.scrollHeight);
+      }
+
+
       DisJS.ENV = 'stage';
       
       new Promise((resolve, reject) => {
-        console.log('--- ACCOUNT EXAMPLES ---\n');
+        document.body.appendChild(document.createElement('h3')).innerHTML = '--- ACCOUNT EXAMPLES ---';
 
         // Account is a constructor with no required inputs
         const temp = new DisJS.Account();
@@ -16,11 +25,11 @@
         // Use account.init() to generate a private key
         temp.init();
         // Models output clean strings in logs and JSON.stringify
-        console.log('Temp account:\n' + temp + '\n');
+        write('Temp account:', temp);
 
         // Account objects can send tokens to other accounts directly; returning the resulting Transaciton
         let tx = test.sendTokens(temp, 5);
-        console.log('New "sendTokens" transaction:\n' + tx + '\n');
+        write('New "sendTokens" transaction:', tx);
 
         // Calling "send" on the Transaction will return the original Promise (not re-send the tx)
         tx.send()
@@ -30,7 +39,7 @@
               tx.whenStatusEquals('Ok')
                 .then(
                   (result) => {
-                    console.log('Transaction result:\n' + JSON.stringify(result) + '\n');
+                    write('Transaction result:', result);
 
                     // Reset
                     temp.sendTokens(test, 5).send()
@@ -42,21 +51,21 @@
                       });
 
                   }, (err) => {
-                    console.log('Transaction result error:\n' + JSON.stringify(err) + '\n');
+                    write('Transaction status error:', err);
                   }
                 );
             },
             (err) => {
-              console.log('Transaction result error:\n' + JSON.stringify(err) + '\n');
+              write('Transaction result error:', err);
             }
           );
       }).then(() => {
         return new Promise((resolve, reject) => {
-          console.log('\n\n--- TRANSACTION EXAMPLES ---\n');
+          document.body.appendChild(document.createElement('h3')).innerHTML = '--- TRANSACTION EXAMPLES ---';
 
         // START SETUP
 
-          console.log('Setting up...');
+          write('Setting up...');
           // Account is a constructor with no required inputs
           const temp = new DisJS.Account();
           // It can also accept any account fields; the most prominant being the privateKey
@@ -85,18 +94,18 @@
                         to: test,
                         value: 5
                       });
-                      console.log('New Transaction:\n' + tx + '\n');
+                      write('New Transaction:', tx);
 
                       // Transactions can also be sent directly, which returns a Promise
                       tx.send()
                         .then((result) => {
-                          console.log('Transaction submission:\n' + JSON.stringify(result) + '\n');
+                          write('Transaction submission:', result);
 
                           // Use 'whenStatusEquals' (returns a Promise) to wait for the transaction to finish
                           tx.whenStatusEquals('Ok')
                             .then(
                               (result) => {
-                                console.log('Transaction result:\n' + JSON.stringify(result) + '\n');
+                                write('Transaction result:', result);
 
                                 // Reset
                                 temp.sendTokens(test, 5).send()
@@ -108,32 +117,32 @@
                                   });
 
                               }, (err) => {
-                                console.error('Transaction result:\n' + JSON.stringify(err) + '\n');
+                                write('Transaction status error:', err);
                               }
                             );
                         }, (err) => {
-                          console.error('Transaction result:\n' + JSON.stringify(err) + '\n');
+                          write('Transaction result error:', err);
                         });
 
 
                     }, (err) => {
-                      console.log('Setup failed!');
+                      write('Setup failed!');
                       console.error(err);
                     }
                   );
               },
               (err) => {
-                console.log('Setup failed!');
+                write('Setup failed!');
                 console.error(err);
               }
             );
         });
       }).then(() => {
         return new Promise((resolve, reject) => {
-          console.log('\n\n--- SMART CONTRACT EXAMPLES ---\n');
+          document.body.appendChild(document.createElement('h3')).innerHTML = '--- SMART CONTRACT EXAMPLES ---';
 
         // SETUP
-          console.log('Setting up...');
+          write('Setting up...');
           const tearDown = () => {
             temp.sendTokens(test, 5).send()
               .then(() => {
@@ -192,7 +201,7 @@
                         "6080604052348015600f57600080fd5b50609c8061001e6000396000f300608060405260043610603e5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663f5a6259f81146043575b600080fd5b348015604e57600080fd5b506058600435606a565b60408051918252519081900360200190f35b600101905600a165627a7a72305820d80420eaa03f38e6d95fdb138708115dae7b4761f6d00171874d7fa40de8a7680029",
                         abi
                       );
-                      console.log('\nNew contract:\n' + contract + '\n');
+                      write('New contract:', contract);
 
                       // Calling "send" on the Transaction will return the original Promise (not re-send the tx)
                       contract.send()
@@ -203,50 +212,51 @@
                               .whenStatusEquals('Ok')
                                 .then((result) => {
 
-                                  console.log('Contract creation result:\n' + JSON.stringify(result) + '\n');
+                                  write('Contract creation result:', result);
 
                                   // Exection happens from the account, to the contract, along with the method and parameters
                                   const execute = test.executeContract(contract, 'plusOne', [1.0]);
-                                  console.log('Contract execution:\n' + execute + '\n');
+                                  write('Contract execution:', execute);
                                   execute
                                     .whenStatusEquals('Ok')
                                       .then((result) => {
-                                        console.log('Contract execution result:\n' + JSON.stringify(result) + '\n');
+                                        write('Contract execution result:', result);
 
                                         // Reset
                                         tearDown();
 
                                       }, (err) => {
-                                        console.log('Contract execution result error:\n' + JSON.stringify(err) + '\n');
+                                        write('Contract execution status error:', err);
                                         // Reset
                                         tearDown();
                                       });
 
                                 }, (err) => {
-                                  console.log('Contract creation result error:\n' + JSON.stringify(err) + '\n');
+                                  write('Contract creation status error:', err);
                                   // Reset
                                   tearDown();
                                 });
                           },
                           (err) => {
-                            console.log('Contract creation result error:\n' + JSON.stringify(err) + '\n');
+                            write('Contract creation result error:', err);
                           }
                         );
 
 
                     }, (err) => {
-                      console.log('Setup failed!');
+                      write('Setup failed!');
                       console.error(err);
                     }
                   );
               },
               (err) => {
-                console.log('Setup failed!');
+                write('Setup failed!');
                 console.error(err);
               }
             );
         });
       }).catch((e) => {
+        write('Unknown failure!');
         console.error(e);
       });
     </script>
