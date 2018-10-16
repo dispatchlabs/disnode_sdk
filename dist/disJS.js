@@ -26,7 +26,7 @@ module.exports={
 	  }
 	},
 	"stage": {
-	  "seedNode": "35.197.78.109:1975",
+	  "seedNode": "35.203.143.69:1975",
 	  "apiVersion": "v1",
 	  "routes": {
 	    "delegateList": "/delegates",
