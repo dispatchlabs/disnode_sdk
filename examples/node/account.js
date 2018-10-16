@@ -7,7 +7,7 @@
 
 'use strict'
 
-const DisNodeSDK = require('./../');
+const DisNodeSDK = require('./../../');
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
@@ -47,7 +47,7 @@ module.exports = () => {
                   });
 
               }, (err) => {
-                console.log('Transaction result error:\n' + JSON.stringify(err) + '\n');
+                console.log('Transaction status error:\n' + JSON.stringify(err) + '\n');
               }
             );
         },
