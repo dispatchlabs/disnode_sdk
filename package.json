@@ -1,6 +1,6 @@
 {
   "name": "@dispatchlabs/disnode-sdk",
-  "version": "1.4.0",
+  "version": "2.3.0",
   "description": "The Dispatch SDK for Node and JavaScript developers.",
   "repository": {
     "type": "git",
