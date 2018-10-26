@@ -18,16 +18,16 @@ describe('Account creation', () => {
   it('Should be able to be instantiated empty', () => {
     const a = new DisNodeSDK.Account();
     assert.equal(a.constructor.name, 'Account');
-    assert.equal(a.toString(), '{}');
-    assert.equal(a.inspect(), '{}');
+    assert.equal(a.toString(), '{"balance":"0","availableHertz":"0"}');
+    assert.equal(a.inspect(), '{"balance":"0","availableHertz":"0"}');
     assert.deepEqual(a.toJSON(), stubData.Account.empty);
   });
 
   it('Should be able to be instantiated with a string (address)', () => {
     const a = new DisNodeSDK.Account(stubData.Account.A1.address);
     assert.equal(a.address, stubData.Account.A1.address);
-    assert.equal(a.toString(), '{"address":"' + stubData.Account.A1.address + '"}');
-    assert.equal(a.inspect(), '{"address":"' + stubData.Account.A1.address + '"}');
+    assert.equal(a.toString(), '{"address":"' + stubData.Account.A1.address + '","balance":"0","availableHertz":"0"}');
+    assert.equal(a.inspect(), '{"address":"' + stubData.Account.A1.address + '","balance":"0","availableHertz":"0"}');
     assert.deepEqual(a.toJSON(), Object.assign({}, stubData.Account.empty, {address: stubData.Account.A1.address}));
   });
 
@@ -39,7 +39,7 @@ describe('Account creation', () => {
   });
 
   it('Should be able to auto-generate values with only the privateKey', () => {
-    const a = new DisNodeSDK.Account({privateKey: stubData.Account.A1.privateKey, balance: 5});
+    const a = new DisNodeSDK.Account({privateKey: stubData.Account.A1.privateKey, balance: 5, availableHertz: 5});
     assert.equal(a.toString(), stubData.Account.A1_str);
     assert.equal(a.inspect(), stubData.Account.A1_str);
     assert.deepEqual(a.toJSON(), stubData.Account.A1);
@@ -76,10 +76,10 @@ describe('Account methods', () => {
     const a = new DisNodeSDK.Account(stubData.Account.A1);
     assert.throws(() => { a.sendTokens(); }, TypeError);
     assert.throws(() => { a.sendTokens(1); }, TypeError);
-    assert.throws(() => { a.sendTokens(stubData.Account.A2); }, TypeError);
-    assert.throws(() => { a.sendTokens(stubData.Account.A2, ''); }, TypeError);
+    assert.throws(() => { a.sendTokens(stubData.Account.A2); }, RangeError);
     assert.throws(() => { a.sendTokens(stubData.Account.A2, -1); }, RangeError);
     assert.doesNotThrow(() => { a.sendTokens(stubData.Account.A2, 1); });
+    assert.doesNotThrow(() => { a.sendTokens(stubData.Account.A2, '1'); });
   });
 
   it('Account.sendTokens should return a sent Transaction', () => {
@@ -94,12 +94,12 @@ describe('Account methods', () => {
     const a = new DisNodeSDK.Account(stubData.Account.A1);
     const b = new DisNodeSDK.Account(stubData.Account.A2);
     return a.sendTokens(b, 1).send().then(() => {
-      assert.equal(a.balance, 4);
-      assert.equal(b.balance, undefined);
+      assert.equal(a.balance, "4");
+      assert.equal(b.balance, "1");
       b.balance = 0;
       return a.sendTokens(b, 1).send().then(() => {
-        assert.equal(a.balance, 3);
-        assert.equal(b.balance, 1);
+        assert.equal(a.balance, "3");
+        assert.equal(b.balance, "1");
       });
     });
   });
@@ -110,9 +110,11 @@ describe('Account methods', () => {
     assert.throws(() => { a.createContract(0); }, TypeError);
     assert.throws(() => { a.createContract(''); }, RangeError);
     assert.throws(() => { a.createContract('a',''); }, TypeError);
-    assert.throws(() => { a.createContract('a',[],''); }, TypeError);
     assert.throws(() => { a.createContract('a',[],-1); }, RangeError);
+    assert.doesNotThrow(() => { a.createContract('a',[]); });
     assert.doesNotThrow(() => { a.createContract('a',[],0); });
+    assert.doesNotThrow(() => { a.createContract('a',[],''); });
+    assert.doesNotThrow(() => { a.createContract('a',[],'1'); });
   });
 
   it('Account.createContract should return a sent Transaction', () => {
@@ -123,23 +125,23 @@ describe('Account methods', () => {
     assert.exists(tx._sendCall);
   });
 
-  it('Account.executeContract requires "to", "method", "params", "abi", and optionally "tokens"', () => {
+  it('Account.executeContract requires "to", "method", "params", and optionally "tokens"', () => {
     const a = new DisNodeSDK.Account(stubData.Account.A1);
     assert.throws(() => { a.executeContract(); }, TypeError);
     assert.throws(() => { a.executeContract(0); }, TypeError);
     assert.throws(() => { a.executeContract(''); }, TypeError);
     assert.throws(() => { a.executeContract('',''); }, TypeError);
     assert.throws(() => { a.executeContract('','',0); }, TypeError);
-    assert.throws(() => { a.executeContract('','',[]); }, TypeError);
-    assert.throws(() => { a.executeContract('','',[],''); }, TypeError);
-    assert.throws(() => { a.executeContract('','',[],[],''); }, TypeError);
-    assert.doesNotThrow(() => { a.executeContract('a','a',[],[],0); });
+    assert.doesNotThrow(() => { a.executeContract('a','a',[]); });
+    assert.doesNotThrow(() => { a.executeContract('a','a',[],0); });
+    assert.doesNotThrow(() => { a.executeContract('a','a',[],''); });
+    assert.doesNotThrow(() => { a.executeContract('a','a',[],'1'); });
   });
 
   it('Account.executeContract should accept a Transaction as "to"', () => {
     const a = new DisNodeSDK.Account(stubData.Account.A1);
     const c1 = new DisNodeSDK.Transaction(stubData.Transaction.T1);
-    const tx = a.executeContract(c1,'a',[],[],0);
+    const tx = a.executeContract(c1,'a',[],0);
     assert.equal(tx.constructor.name, 'Transaction');
     assert.equal(tx.type, 2);
     assert.exists(tx._sendCall);
@@ -147,7 +149,7 @@ describe('Account methods', () => {
 
   it('Account.executeContract should return a sent Transaction', () => {
     const a = new DisNodeSDK.Account(stubData.Account.A1);
-    const tx = a.executeContract('a','a',[],[],0);
+    const tx = a.executeContract('a','a',[],0);
     assert.equal(tx.constructor.name, 'Transaction');
     assert.equal(tx.type, 2);
     assert.exists(tx._sendCall);
