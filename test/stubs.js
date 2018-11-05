@@ -46,22 +46,22 @@ module.exports = (DisNodeSDK) => {
         code: 'a',
         abi: '[]',
         method: 'foo',
-        params: [],
+        params: '[]',
         gossip: [],
-        signature: '83ec5b8a03249d8a8269181d7147337fda8ac34bb9e8a5c4df0618ffcb21ab8f2a28844690aa7c7d7f8c8f3b3e117c6c4fbc837e5afcbb2b5cb65e82324ee2cc01',
+        signature: 'c8a907d1869daee2e49d92024319a3f8a75d77e7c22e15cd3f5553ac1f05a1d71a801f89a6ae4d050dfee60b830725b5d6ac9e7f97aefe81e3339971616e4ff200',
         hertz: '0',
         fromName: undefined,
         toName: undefined,
         address: '03e08bb6f3f25c3374487c4f5c026bd1e0fa4f5a39ef89e52f5ec1cb93a5c59744'
       },
-      T1_str: '{"hash":"1d6aca3a91c9ad81f36d0e52e47992257ba4c5309916ca370a2a37e9abad2e1f","type":0,"from":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d","to":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30b","value":"5","code":"a","abi":"[]","method":"foo","params":[],"time":1532595045435,"signature":"83ec5b8a03249d8a8269181d7147337fda8ac34bb9e8a5c4df0618ffcb21ab8f2a28844690aa7c7d7f8c8f3b3e117c6c4fbc837e5afcbb2b5cb65e82324ee2cc01","hertz":"0","address":"03e08bb6f3f25c3374487c4f5c026bd1e0fa4f5a39ef89e52f5ec1cb93a5c59744","gossip":[]}',
+      T1_str: '{"hash":"1d6aca3a91c9ad81f36d0e52e47992257ba4c5309916ca370a2a37e9abad2e1f","type":0,"from":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d","to":"fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30b","value":"5","code":"a","abi":"[]","method":"foo","params":"[]","time":1532595045435,"signature":"c8a907d1869daee2e49d92024319a3f8a75d77e7c22e15cd3f5553ac1f05a1d71a801f89a6ae4d050dfee60b830725b5d6ac9e7f97aefe81e3339971616e4ff200","hertz":"0","address":"03e08bb6f3f25c3374487c4f5c026bd1e0fa4f5a39ef89e52f5ec1cb93a5c59744","gossip":[]}',
       type0: {
         from: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
         to: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30b',
         value: 5,
         time: 1532595045435
       },
-      type0Hash: '8ba0fe44ff4681344c04ef759209cd0d50684425f2ab608ac1d2770aac00d171',
+      type0Hash: 'fb638e6711fbc394a4edddabcb2515dd6a464ffc910d0232f6c3b252a2de6c5c',
       type1: {
         type: 1,
         from: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
@@ -86,7 +86,7 @@ module.exports = (DisNodeSDK) => {
             contractAddress: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30c'
           }
       },
-      type1Hash: '8cb4e2869137362803173c974e9ebb9b409be88d49178ab885ffbf34df699133',
+      type1Hash: '6121126b0039d6f1e970414984f8f66e91a792d089f61942a6ac6c3361516465',
       type2: {
         type: 2,
         from: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
@@ -95,7 +95,7 @@ module.exports = (DisNodeSDK) => {
         method: 'g',
         abi: []
       },
-      type2Hash: '3585c5f37fc804263a7f162a43b8261f04603099d7ade35c146dc3dc9e299daf'
+      type2Hash: '61d7426e58542ae216eb8ce50b99270aeaad39cfe721ec8bcb325618613f56ab'
     },
     Contract: {
       C1: {
@@ -156,7 +156,7 @@ module.exports = (DisNodeSDK) => {
         }
       })
       break;
-    case '/v1/transactions/8cb4e2869137362803173c974e9ebb9b409be88d49178ab885ffbf34df699133':
+    case '/v1/transactions/6121126b0039d6f1e970414984f8f66e91a792d089f61942a6ac6c3361516465':
       callback(null, {
         status: 'Ok',
         humanReadableStatus: 'Ok',
