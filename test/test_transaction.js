@@ -68,9 +68,10 @@ describe('Transaction creation', () => {
   });
 
   it('Transaction.value should contain a positive number', () => {
-    assert.throws(() => { new DisNodeSDK.Transaction({ from: '', value: '' }); }, TypeError);
     assert.throws(() => { new DisNodeSDK.Transaction({ from: '', value: -1 }); }, RangeError);
+    assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '' }); });
     assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '', value: 0 }); });
+    assert.doesNotThrow(() => { new DisNodeSDK.Transaction({ from: '', value: '0' }); });
   });
 
   it('Transaction.time should contain a date value (default: now)', () => {
