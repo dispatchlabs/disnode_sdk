@@ -37,6 +37,7 @@
   "devDependencies": {
     "browserify": "^16.2.3",
     "chai": "^4.1.2",
+    "cached-path-relative": ">=1.0.2",
     "gulp-format-md": "^1.0.0",
     "husky": "^1.1.2",
     "mapstraction": "^1.0.1",
