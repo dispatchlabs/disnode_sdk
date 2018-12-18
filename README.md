@@ -9,7 +9,7 @@ Please consider following this project's author, [Dispatch Labs](https://github.
 Install with [npm](https://www.npmjs.com/):
 
 ```sh
-$ npm install --save @dispatchlabs/disnode-sdk
+$ npm install --save git+https://git@github.com/dispatchlabs/disnode_sdk.git
 ```
 
 ## CDN
@@ -35,6 +35,7 @@ For JavaScript, the top-level object is `DisJS`. Any of the models and methods b
 ```js
 // Create an empty account
 var account = new DisJS.Account();
+account.init();
 ```
 
 ### Running examples
@@ -62,6 +63,7 @@ Account constructor. Create an instance of an account, which can then be used to
 ```js
 // Create an empty account
 let account = new DisNodeSDK.Account();
+account.init();
 ```
 
 ```js
@@ -70,10 +72,9 @@ let account = new DisNodeSDK.Account('fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d')
 ```
 
 ```js
-// Create an account using an object
+// Create an account using a private key (the address and public key will be filled in automatically)
 let account = new DisNodeSDK.Account({
  name: 'MyAccount',
- address: 'fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d',
  privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
 });
 ```
@@ -124,7 +125,10 @@ Creates and sends a transaction that will transfer tokens from the source accoun
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account('fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d');
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 // Send one (1) token
 let tx = account.sendTokens(new DisNodeSDK.Account().init(), 1);
 ```
@@ -143,9 +147,12 @@ Creates and sends a transaction from the account that will create a new Smart Co
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account('fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d');
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 let compiled = DisNodeSDK.Transaction.compileSource('contract x { function g() { } }');
-let contract = account.createContract(compiled.contracts[0].bytecode, compiled.contracts[0].abi, 5);
+let contract = account.createContract(compiled.contracts[0].bytecode, compiled.contracts[0].abi);
 ```
 
 ### [executeContract](lib/models/Account.js#L343)
@@ -163,12 +170,15 @@ Creates and sends a transaction from the account that will execute a method on a
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account('fa61c18114f8ff8aafbeb5d32e1b108e3f6cf30d');
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 let compiled = DisNodeSDK.Transaction.compileSource('contract x { function g() { } }');
-let contract = account.createContract(compiled.contracts[0].bytecode, compiled.contracts[0].abi, 5);
+let contract = account.createContract(compiled.contracts[0].bytecode, compiled.contracts[0].abi);
 contract.whenStatusEquals('Ok')
   .then(() => {
-    account.executeContract(contract, 'g', [], compiled.contracts[0].abi, 5);
+    account.executeContract(contract, 'g', [], compiled.contracts[0].abi);
   })
   .catch((err) => {
     console.error(err);
@@ -200,7 +210,10 @@ Sends the transaction to a delegate.
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account().init();
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 let tx = new DisNodeSDK.Transaction({from: account});
 tx.send()
   .then((result) => {
@@ -220,7 +233,10 @@ Requests the current status of the transaction from a delegate.
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account().init();
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 let tx = new DisNodeSDK.Transaction({from: account});
 tx.send();
 tx.status()
@@ -244,7 +260,10 @@ Waits until the status of the transaction matches the value provided, then resol
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account().init();
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 let tx = new DisNodeSDK.Transaction({from: account});
 tx.send();
 tx.whenStatusEquals('Ok')
@@ -268,7 +287,10 @@ Static method to compile Solidity code directly.
 **Example**
 
 ```js
-let account = new DisNodeSDK.Account().init();
+let account = new DisNodeSDK.Account({
+ name: 'MyAccount',
+ privateKey: '472ba91402425b58a2eebf932812f20c6d7f6297bba1f83d9a58116ae6512d9e'
+});
 let compiled = DisNodeSDK.Transaction.compileSource('contract x { function g() { } }');
 if (compiled.errors.length > 0) {
   // Errors are fatal
@@ -342,7 +364,7 @@ $ npm install -g verbose/verb#dev verb-generate-readme && verb
 ### License
 
 Copyright © 2018, [Dispatch Labs](http://dispatchlabs.io).
-Released under the [LGPL-3.0 License](LICENSE).
+Released under the [LGPL-2.1 License](LICENSE).
 
 ***
 
