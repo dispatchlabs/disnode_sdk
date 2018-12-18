@@ -1,35 +1,46 @@
 {
 	"local": {
-	  "seedNode": "127.0.0.1:1975",
-	  "apiVersion": "v1",
-	  "routes": {
-	    "delegateList": "/delegates",
-	    "transactionSend": "/transactions",
-	    "transactionStatus": "/transactions/",
-	    "accountStatus": "/accounts/",
-	    "compileSolidity": "/compile"
-	  }
+		"seedNode": "127.0.0.1:1975",
+		"apiVersion": "v1",
+		"routes": {
+			"delegateList": "/delegates",
+			"transactionSend": "/transactions",
+			"transactionStatus": "/transactions/",
+			"accountStatus": "/accounts/",
+			"compileSolidity": "/compile"
+		}
 	},
 	"production": {
-	  "seedNode": "seed.dispatchlabs.io:1975",
-	  "apiVersion": "v1",
-	  "routes": {
-	    "delegateList": "/delegates",
-	    "transactionSend": "/transactions",
-	    "transactionStatus": "/transactions/",
-	    "accountStatus": "/accounts/",
-	    "compileSolidity": "/compile"
-	  }
+		"seedNode": "seed.dispatchlabs.io:1975",
+		"apiVersion": "v1",
+		"routes": {
+			"delegateList": "/delegates",
+			"transactionSend": "/transactions",
+			"transactionStatus": "/transactions/",
+			"accountStatus": "/accounts/",
+			"compileSolidity": "/compile"
+		}
 	},
 	"stage": {
-	  "seedNode": "35.203.143.69:1975",
-	  "apiVersion": "v1",
-	  "routes": {
-	    "delegateList": "/delegates",
-	    "transactionSend": "/transactions",
-	    "transactionStatus": "/transactions/",
-	    "accountStatus": "/accounts/",
-	    "compileSolidity": "/compile"
-	  }
+		"seedNode": "35.203.143.69:1975",
+		"apiVersion": "v1",
+		"routes": {
+			"delegateList": "/delegates",
+			"transactionSend": "/transactions",
+			"transactionStatus": "/transactions/",
+			"accountStatus": "/accounts/",
+			"compileSolidity": "/compile"
+		}
+	},
+	"development": {
+		"seedNode": "35.197.127.151:1975",
+		"apiVersion": "v1",
+		"routes": {
+			"delegateList": "/delegates",
+			"transactionSend": "/transactions",
+			"transactionStatus": "/transactions/",
+			"accountStatus": "/accounts/",
+			"compileSolidity": "/compile"
+		}
 	}
 }
