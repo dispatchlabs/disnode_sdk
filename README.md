@@ -1,5 +1,7 @@
 # @dispatchlabs/disnode-sdk [![NPM version](https://img.shields.io/npm/v/@dispatchlabs/disnode-sdk.svg?style=flat)](https://www.npmjs.com/package/@dispatchlabs/disnode-sdk) [![NPM monthly downloads](https://img.shields.io/npm/dm/@dispatchlabs/disnode-sdk.svg?style=flat)](https://npmjs.org/package/@dispatchlabs/disnode-sdk) [![NPM total downloads](https://img.shields.io/npm/dt/@dispatchlabs/disnode-sdk.svg?style=flat)](https://npmjs.org/package/@dispatchlabs/disnode-sdk) [![Linux Build Status](https://img.shields.io/travis/dispatchlabs/dispatchlabs.svg?style=flat&label=Travis)](https://travis-ci.org/dispatchlabs/dispatchlabs)
 
+# This library has been deprecated. [Please Use dispatch-js here](https://github.com/dispatchlabs/dispatch-js)
+
 > The Dispatch SDK for Node and JavaScript developers.
 
 Please consider following this project's author, [Dispatch Labs](https://github.com/David Hutchings), and consider starring the project to show your :heart: and support.
